@@ -8,10 +8,6 @@ class AdminDashboard extends CI_Controller {
 		parent::__construct();
 		// بارگذاری مدل داشبورد
 		$this->load->model('Dashboard_model');
-		// چک کردن ورود ادمین (اختیاری)
-		if (!$this->session->userdata('is_admin')) {
-			redirect('login');
-		}
 	}
 
 	public function index()

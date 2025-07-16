@@ -12,12 +12,18 @@ class AdminDashboard extends CI_Controller {
 
 	public function index()
 	{
+		$data['title'] = 'داشبورد';
+
 		// گرفتن داده‌های لازم از مدل
 		$data['total_students'] = $this->Dashboard_model->count_students();
 		$data['total_teachers'] = $this->Dashboard_model->count_teachers();
 		$data['total_classes'] = $this->Dashboard_model->count_classes();
 
-		// بارگذاری ویو و ارسال داده‌ها
-		$this->load->view('admin/dashboard', $data);
+		// بارگذاری محتوای وسط در یک متغیر و ارسال به اسکلت
+		$data['content'] = $this->load->view('admin/dashboard_content', $data, true);
+		$this->load->view('admin/header/header', $data);
+		$this->load->view('admin/sidebar/sidebar', $data);
+		$this->load->view('admin/dashboard_layout', $data);
 	}
+
 }

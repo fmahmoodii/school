@@ -29,7 +29,7 @@ class Student extends CI_Controller {
 	public function save() {
 		$data = [
 			'name' => $this->input->post('name'),
-			'birthdate' => $this->input->post('birthdate'),
+			'birth_date' => $this->input->post('birth_date'),
 			'class_id' => $this->input->post('class_id')
 		];
 		$this->Student_model->insert($data);
@@ -55,7 +55,7 @@ class Student extends CI_Controller {
 	public function update($id) {
 		$data = [
 			'name' => $this->input->post('name'),
-			'birthdate' => $this->input->post('birthdate'),
+			'birth_date' => $this->input->post('birth_date'),
 			'class_id' => $this->input->post('class_id')
 		];
 		$this->Student_model->update($id, $data);

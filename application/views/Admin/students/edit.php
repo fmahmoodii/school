@@ -9,7 +9,7 @@
 
 			<div class="mb-3">
 				<label class="form-label">تاریخ تولد</label>
-				<input type="date" name="birthdate" class="form-control" value="<?= $student['birthdate'] ?>" required>
+				<input type="date" name="birth_date" class="form-control" value="<?= $student['birth_date'] ?>" required>
 			</div>
 
 			<div class="mb-3">

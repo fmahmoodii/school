@@ -9,7 +9,7 @@
 
 			<div class="mb-3">
 				<label class="form-label">تاریخ تولد</label>
-				<input type="date" name="birthdate" class="form-control" required>
+				<input type="date" name="birth_date" class="form-control" required>
 			</div>
 
 			<div class="mb-3">

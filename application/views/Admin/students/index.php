@@ -3,32 +3,49 @@
 	<a href="<?= base_url('index.php/Student/add') ?>" class="btn btn-primary">افزودن دانش‌آموز</a>
 </div>
 
-<table class="table table-bordered table-hover">
-	<thead class="table-light">
+<table id="studentsTable" class="table table-striped">
+	<thead>
 	<tr>
 		<th>ردیف</th>
 		<th>نام</th>
-		<th>کلاس</th>
+		<th>نام خانوادگی</th>
+		<th>کد ملی</th>
 		<th>تاریخ تولد</th>
 		<th>عملیات</th>
 	</tr>
 	</thead>
 	<tbody>
-	<?php if (!empty($students)): ?>
-		<?php $i = 1; foreach ($students as $student): ?>
-			<tr>
-				<td><?= $i++ ?></td>
-				<td><?= $student['name'] ?></td>
-				<td><?= $student['class_name'] ?></td>
-				<td><?= $student['birthdate'] ?></td>
-				<td>
-					<a href="<?= base_url('index.php/Student/edit/' . $student['id']) ?>" class="btn btn-sm btn-warning">ویرایش</a>
-					<a href="<?= base_url('index.php/Student/delete/'.$student['id']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('آیا از حذف مطمئنی؟')">حذف</a>
-				</td>
-			</tr>
-		<?php endforeach; ?>
-	<?php else: ?>
-		<tr><td colspan="5" class="text-center">هیچ دانش‌آموزی ثبت نشده است.</td></tr>
-	<?php endif; ?>
+	<?php $i = 1; foreach ($students as $student): ?>
+		<tr>
+			<td><?= $i++ ?></td>
+			<td><?= $student['first_name'] ?></td>
+			<td><?= $student['last_name'] ?></td>
+			<td><?= $student['national_id'] ?></td>
+			<td><?= $student['birth_date'] ?></td>
+			<td>
+				<a href="#" class="btn btn-sm btn-primary">ویرایش</a>
+				<a href="#" class="btn btn-sm btn-danger">حذف</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
 	</tbody>
 </table>
+
+<script>
+	$(document).ready(function() {
+		// ثبت نوع تاریخ شمسی برای مرتب‌سازی
+		$.fn.dataTable.moment('YYYY/MM/DD');
+
+		$('#studentsTable').DataTable({
+			language: {
+				url: "<?= base_url('assets/datatables/fa.json') ?>"
+			},
+			dom: 'Bfrtip',
+			buttons: [
+				'copy', 'excel', 'pdf', 'print'
+			],
+			order: [[0, 'asc']], // مرتب‌سازی پیش‌فرض روی ردیف
+			responsive: true
+		});
+	});
+</script>

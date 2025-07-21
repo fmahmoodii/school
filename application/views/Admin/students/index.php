@@ -1,3 +1,4 @@
+
 <div class="d-flex justify-content-between align-items-center mb-4">
 	<h4>لیست دانش‌آموزان</h4>
 	<a href="<?= base_url('index.php/Student/add') ?>" class="btn btn-primary">افزودن دانش‌آموز</a>
@@ -31,21 +32,48 @@
 	</tbody>
 </table>
 
+<!-- jQuery -->
+<script src="<?= base_url('assets/js/jquery-3.7.1.min.js') ?>"></script>
+
+<!-- Bootstrap Bundle -->
+<script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
+
+<!-- moment و تاریخ شمسی -->
+<script src="<?= base_url('assets/js/moment.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/moment-jalaali.js') ?>"></script>
+<script src="<?= base_url('assets/datatables/datetime-moment.js') ?>"></script>
+
+<!-- DataTables اصلی -->
+<script src="<?= base_url('assets/datatables/datatables.min.js') ?>"></script>
+
+<!-- Buttons -->
+<script src="<?= base_url('assets/datatables/dataTables.buttons.min.js') ?>"></script>
+<script src="<?= base_url('assets/datatables/buttons.bootstrap5.min.js') ?>"></script>
+
+<!-- Export Excel / PDF -->
+<script src="<?= base_url('assets/js/jszip.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/pdfmake.min.js') ?>"></script>
+<script src="<?= base_url('assets/js/vfs_fonts.js') ?>"></script>
+<script src="<?= base_url('assets/datatables/buttons.html5.min.js') ?>"></script>
+<script src="<?= base_url('assets/datatables/buttons.print.min.js') ?>"></script>
+
+
 <script>
-	$(document).ready(function() {
-		// ثبت نوع تاریخ شمسی برای مرتب‌سازی
-		$.fn.dataTable.moment('YYYY/MM/DD');
+	$(document).ready(function () {
+		// مرتب‌سازی بر اساس تاریخ شمسی
+		$.fn.dataTable.moment('jYYYY/jMM/jDD'); // اگر تاریخ شمسی استفاده می‌کنی
 
 		$('#studentsTable').DataTable({
 			language: {
 				url: "<?= base_url('assets/datatables/fa.json') ?>"
 			},
 			dom: 'Bfrtip',
+			responsive: true,
+			order: [[0, 'asc']],
 			buttons: [
 				'copy', 'excel', 'pdf', 'print'
-			],
-			order: [[0, 'asc']], // مرتب‌سازی پیش‌فرض روی ردیف
-			responsive: true
+			]
 		});
 	});
 </script>
+

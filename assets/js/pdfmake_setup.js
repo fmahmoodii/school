@@ -1,1 +1,0 @@
-// pdfMake export setup with Persian font support

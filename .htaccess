@@ -1,4 +1,12 @@
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /school/
+
+    # اگر فایل یا پوشه وجود داشت، مستقیم اجرا شود
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # بقیه درخواست‌ها به index.php منتقل شود
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+

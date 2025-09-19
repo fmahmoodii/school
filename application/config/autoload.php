@@ -132,4 +132,5 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Dashboard');
+$autoload['model'] = array('MY_Model','Datatable_model');
+

@@ -12,65 +12,44 @@ class MY_Model extends CI_Model {
 	// =======================
 	public function get_data(
 		$table,
-		$select,
-		$where = NULL,
-		$or_where = NULL,
-		$where_in = NULL,
-		$where_not_in = NULL,
-		$like = NULL,
-		$or_like = NULL,
-		$join = NULL,
-		$group_by = NULL,
-		$having = NULL,
-		$order_by = NULL,
-		$limit = NULL,
-		$offset = NULL,
-		$distinct = false,
-		$custom_where = NULL
+		$select = '*',
+		$where = null,
+		$like = null,
+		$or_where = null,
+		$where_in = null,
+		$group_by = null,
+		$order_by = null,
+		$limit = null,
+		$offset = null,
+		$join = null // اضافه شد
 	) {
-		$this->db->select($select ?: '*');
-
-		if($distinct) $this->db->distinct();
+		$this->db->select($select);
+		$this->db->from($table);
 
 		if ($where) $this->db->where($where);
+		if ($like) $this->db->like($like);
 		if ($or_where) $this->db->or_where($or_where);
-		if ($where_in) {
-			foreach($where_in as $col => $values){
-				$this->db->where_in($col, $values);
+		if ($where_in && is_array($where_in)) {
+			foreach ($where_in as $col => $vals) {
+				$this->db->where_in($col, $vals);
 			}
 		}
-		if ($where_not_in) {
-			foreach($where_not_in as $col => $values){
-				$this->db->where_not_in($col, $values);
-			}
-		}
-		if ($like) {
-			foreach($like as $col => $val){
-				$this->db->like($col, $val);
-			}
-		}
-		if ($or_like) {
-			foreach($or_like as $col => $val){
-				$this->db->or_like($col, $val);
-			}
-		}
-
-		if ($join) {
-			foreach($join as $j){
-				$type = isset($j['type']) ? $j['type'] : '';
-				$this->db->join($j['table'], $j['condition'], $type);
-			}
-		}
-
 		if ($group_by) $this->db->group_by($group_by);
-		if ($having) $this->db->having($having);
-
 		if ($order_by) $this->db->order_by($order_by);
-		if ($custom_where) $this->db->where($custom_where, NULL, FALSE);
 
-		$query = $this->db->get($table, $limit, $offset);
-		return $query->result_object();
+		// اعمال JOIN ها
+		if ($join && is_array($join)) {
+			foreach ($join as $j) {
+				// ساختار: ['table', 'condition', 'type']
+				$this->db->join($j[0], $j[1], $j[2] ?? 'inner');
+			}
+		}
+
+		$query = $this->db->get($limit, $offset);
+
+		return $query->result(); // همیشه آرایه از object برگرده
 	}
+
 
 	// =======================
 	// INSERT پیشرفته
